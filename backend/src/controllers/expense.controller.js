@@ -104,31 +104,65 @@ const updateexpense = async (req, res) => {
   }
 };
 
+const getDateRange=(period,value)=>{
+  let startDate, endDate;
 
-// const totalexpense=async(req,res)=>{
-  
-//   const [period,value]=req.body;
-//   if(!period || !value){
-//     return res.status(400).json({message:"Period and value are required"});
-//   }
-//   if(period==="daily"){
+  if (period === "daily") {
+    startDate = new Date(value);
+    startDate.setHours(0, 0, 0, 0);
+
+    endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 1);
+  }
+
+  if (period === "monthly") {
+    const [year, month] = value.split("-");
+
+    startDate = new Date(year, month , 1);
+    endDate = new Date(year, month+1, 1);
+  }
+
+  if (period === "yearly") {
+    const year = Number(value);
+
+    startDate = new Date(year, 0, 1);
+    endDate = new Date(year + 1, 0, 1);
+  }
+  return { startDate, endDate };
+}
+
+
+const totalexpense=async(req,res)=>{
+  try {
     
-//     const totalExpense=await Expense.aggregate([
-//       { $match: {
-//           userId: new mongoose.Types.ObjectId(userId),
-//           date: {value}
-//         },
-//         {
-//           $group: {
-//             _id: null,
-//             totalAmount: { $sum: "$amount" }  
-//         }
-
-
-//       }
-//     ])};                   
-//   }
-
+      const {period,value}=req.body;
+      if(!period || !value){
+        return res.status(400).json({message:"Period and value are required"});
+      }
+      const {startDate,endDate}=getDateRange(period,value);
+      const totalExpense=await Expense.aggregate([//aggregate() hamesha ARRAY return karta hai
+        { $match: {
+            userId: mongoose.Types.ObjectId(req.user._id),
+            date: { $gte: startDate, $lt: endDate }//$gte = Greater Than or Equal to (>=) , $lt = Less Than (<)
+          }
+        },
+        {
+          $group: {
+            _id: null,//sab documents ko ek hi group bana do as hame category wise group ni krna ie group by sql vala
+            totalAmount: { $sum: "$amount" }  
+          }
+  
+  
+        }
+      ]); //[  { _id: null, totalAmount: 2500 }] asia kuch result hoga
+      const totalAmount=totalExpense.length>0?.totalAmount||0;
+  
+      res.status(200).json({message:"Total expense fetched successfully",totalAmount});
+    } catch (error) {
+    res.status(500).json({message:"Server error",error:error.message});
+    
+  }
+};
 
 
 export {addexpense,getexpense,deleteexpense,updateexpense,totalexpense};
