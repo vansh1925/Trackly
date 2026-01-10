@@ -165,4 +165,4 @@ const totalexpense=async(req,res)=>{
 };
 
 
-export {addexpense,getexpense,deleteexpense,updateexpense,totalexpense};
+export {addexpense,getexpense,getallexpenses,deleteexpense,updateexpense,totalexpense};
