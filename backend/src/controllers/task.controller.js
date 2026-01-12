@@ -95,6 +95,68 @@ const taskToggleStatus=async(req,res)=>{
    
 
 }
+const totalProductivity=async(req,res)=>{//minutes of tasks completed in a date range
+  try{
+    const startTime=new Date(req.query.startDate);
+    const endTime=new Date(req.query.endDate);
+    if (isNaN(startTime.getTime()) || isNaN(endTime.getTime())) {
+      return res.status(400).json({ message: "Invalid startDate or endDate" });
+    }
+    endTime.setDate(endTime.getDate()+1);//include end date fully
+    endTime.setHours(0,0,0,0);
+    /*
+    ex->startTime = 2024-01-10 00:00
+    endTime   = 2024-01-13 00:00 
+    |----10 Jan----|----11 Jan----|----12 Jan----|----13 Jan----|
+    10 11 12 all included
+    */
+   
+    const tasks=await Task.aggregate([
+      {$match:{
+        userId:new mongoose.Types.ObjectId(req.user._id),
+        completed:true,
+        date:{$gte:startTime,$lt:endTime}//start inclusive, end exclusive 
+      }},{
+        $group:{
+          _id:null,
+          totalDuration:{$sum:"$duration"}
+        }
+      }
+    ]);
 
+    const totalTasks=tasks.length>0?tasks[0].totalDuration:0;
+    res.status(200).json({message:"Total productivity fetched successfully",totalTasks});
+  } catch(error){
+    res.status(500).json({message:"Internal server error"});
+  }
+}
+const taskcompletedcount=async(req,res)=>{
+  try {
+    const tasks=await Task.aggregate([
+      {$match: {
+        userId:new mongoose.Types.ObjectId(req.user._id),
+      }},{
+        $group:{
+          _id:"$completed",
+          totalTask:{$sum:1}
+        }
+      }
+    ])
+    let completed=0;
+    let pending=0;
+    tasks.forEach((t)=>{
+      if(t._id===true){
+        completed=t.totalTask;
+      }else{
+        pending=t.totalTask;
+      }
+    })
+    res.status(200).json({message:"Task status fetched successfully",completed,pending});
+  
+  } catch (error) {
+    res.status(500).json({message:"Internal server error"});
+    
+  }
+}
 
-export {addtask,deletetask,gettask,getalltasks,updatetask,taskToggleStatus};
+export {addtask,deletetask,gettask,getalltasks,updatetask,taskToggleStatus,totalProductivity,taskcompletedcount};
