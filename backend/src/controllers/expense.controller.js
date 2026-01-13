@@ -1,5 +1,5 @@
-import { parse } from "dotenv";
 import Expense from "../models/expense.model.js";
+import mongoose from "mongoose";
 const addexpense = async (req, res) => {
   try {
     const { title, amount, date, category, note } = req.body;
@@ -118,8 +118,10 @@ const getDateRange=(period,value)=>{
   if (period === "monthly") {
     const [year, month] = value.split("-");
 
-    startDate = new Date(year, month , 1);
-    endDate = new Date(year, month+1, 1);
+    startDate = new Date(year, month-1 , 1);//AS MONTH 0 INDEXED HOTA HAI JS MEIN
+    endDate = new Date(year, month , 1);
+    //if month=01 (jan) , THEN INDEX=0
+    endDate = new Date(year, month, 1);
   }
 
   if (period === "yearly") {
@@ -135,14 +137,15 @@ const getDateRange=(period,value)=>{
 const totalexpense=async(req,res)=>{
   try {
     
-      const {period,value}=req.body;
+      const period=req.query.period;//daily,monthly,yearly
+      const value=req.query.value;//for daily->2024-01-10 , for monthly->2024-01 , for yearly->2024
       if(!period || !value){
         return res.status(400).json({message:"Period and value are required"});
       }
       const {startDate,endDate}=getDateRange(period,value);
       const totalExpense=await Expense.aggregate([//aggregate() hamesha ARRAY return karta hai
         { $match: {
-            userId: mongoose.Types.ObjectId(req.user._id),
+            userId: new mongoose.Types.ObjectId(req.user._id),
             date: { $gte: startDate, $lt: endDate }//$gte = Greater Than or Equal to (>=) , $lt = Less Than (<)
           }
         },
@@ -155,7 +158,7 @@ const totalexpense=async(req,res)=>{
   
         }
       ]); //[  { _id: null, totalAmount: 2500 }] asia kuch result hoga
-      const totalAmount=totalExpense.length>0?.totalAmount||0;
+      const totalAmount=totalExpense.length>0?totalExpense[0].totalAmount : 0||0;
   
       res.status(200).json({message:"Total expense fetched successfully",totalAmount});
     } catch (error) {

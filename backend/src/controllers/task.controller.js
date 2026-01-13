@@ -1,4 +1,5 @@
-import Task from "../models/task.model";
+import Task from "../models/task.model.js";
+import mongoose from "mongoose";
 const addtask=async(req,res)=>{
   try {
     const{title,duration,date}=req.body;
