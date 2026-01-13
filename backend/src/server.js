@@ -5,6 +5,7 @@ import userroutes from './routes/user.route.js';
 import expenserouters from './routes/expense.route.js';
 import taskrouters from './routes/task.route.js';
 import authMiddleware from './middlewares/auth.middleware.js';
+import dashboardrouter from './routes/dashboard.route.js';
 dotenv.config();
 const app=express();
 connectDB();
@@ -17,5 +18,5 @@ app.listen(PORT,()=>{
 app.use('/api/users',userroutes);
 app.use('/api/expenses',authMiddleware,expenserouters);
 app.use('/api/tasks',authMiddleware,taskrouters);
-
+app.use('/api/dashboard',authMiddleware,dashboardrouter);
 
