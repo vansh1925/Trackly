@@ -56,4 +56,10 @@ const loginUser = async(req, res) => {
   }
   
 }
-export { registerUser, loginUser };
+const getMe= async(req, res) => {
+  
+  res.status(200).json({ message: 'User data fetched successfully', data: { user: req.user }   });
+};
+    
+    
+export { registerUser, loginUser, getMe };
