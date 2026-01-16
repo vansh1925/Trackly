@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import userroutes from './routes/user.route.js';
@@ -9,6 +10,13 @@ import dashboardrouter from './routes/dashboard.route.js';
 dotenv.config();
 const app=express();
 connectDB();
+
+// CORS configuration
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 const PORT=process.env.PORT || 5000;  
