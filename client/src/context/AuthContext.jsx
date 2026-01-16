@@ -30,7 +30,9 @@ export const AuthProvider = ({ children }) => {
     setUser(response.data.data.user);
   }
   const register = async (name, email, password) => {
-    await api.post('/users/register', { name, email, password });
+    const response = await api.post('/users/register', { name, email, password });
+    localStorage.setItem('token', response.data.data.token);
+    setUser(response.data.data.user);
   }
   const logout=() => {
     localStorage.removeItem('token');

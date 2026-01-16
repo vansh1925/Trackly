@@ -13,6 +13,20 @@ function Register() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const passwordError = (pwd) => {
+    const trimmed = pwd.trim();
+    const meetsLength = trimmed.length >= 8;
+    const hasUpper = /[A-Z]/.test(trimmed);
+    const hasLower = /[a-z]/.test(trimmed);
+    const hasNumber = /[0-9]/.test(trimmed);
+    const hasSpecial = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(trimmed);
+
+    if (!meetsLength || !hasUpper || !hasLower || !hasNumber || !hasSpecial) {
+      return 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+    }
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return; // prevent double submit
@@ -29,8 +43,9 @@ function Register() {
       return;
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+    const passwordValidationError = passwordError(password);
+    if (passwordValidationError) {
+      setError(passwordValidationError);
       return;
     }
 
@@ -41,7 +56,7 @@ function Register() {
 
     try {
       setLoading(true);
-      await register(name.trim(), email.trim(), password);
+      await register(name.trim(), email.trim(), password.trim());
       navigate('/dashboard');
     } catch (err) {
       let message = 'Registration failed. Please try again.';

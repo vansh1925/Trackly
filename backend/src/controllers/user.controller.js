@@ -1,6 +1,7 @@
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { validateEmail, validatePasswordStrength, sanitizeInput } from '../utils/validation.js';
 
 const generateAccessToken= (userId)=>{
   
@@ -9,10 +10,30 @@ const generateAccessToken= (userId)=>{
 }
 const registerUser = async (req, res) => {
  try {
-   const { name,email, password } = req.body;
+   let { name, email, password } = req.body;
+   
+   // Sanitize inputs
+   name = sanitizeInput(name);
+   email = sanitizeInput(email);
    
    if(!name || !email || !password){
      return res.status(400).json({ message: 'All fields are required' });
+   }
+   
+   // Validate email format
+   if (!validateEmail(email)) {
+     return res.status(400).json({ message: 'Invalid email format' });
+   }
+   
+   // Validate name length
+   if (name.length < 2 || name.length > 100) {
+     return res.status(400).json({ message: 'Name must be between 2 and 100 characters' });
+   }
+   
+   // Validate password strength
+   const passwordValidation = validatePasswordStrength(password);
+   if (!passwordValidation.valid) {
+     return res.status(400).json({ message: passwordValidation.message });
    }
    
    const existingUser=await User.findOne({ email });
@@ -29,8 +50,16 @@ const registerUser = async (req, res) => {
     if (!createdUser) {
       return res.status(404).json({ message: "User not found after creation" });
     }
-   
-   res.status(201).json({ message: 'User registered successfully', userId: createdUser._id });
+
+   const token = generateAccessToken(createdUser._id);
+
+   res.status(201).json({
+     message: 'User registered successfully',
+     data: {
+       token,
+       user: createdUser
+     }
+   });
  } catch (error) {
     console.error('Register error:', error.message);
     res.status(500).json({ message: 'Internal server error' });
