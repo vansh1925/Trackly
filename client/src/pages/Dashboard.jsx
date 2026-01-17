@@ -3,6 +3,9 @@ import { IndianRupee, TrendingUp, Clock, CheckCircle2 } from 'lucide-react';
 import api from '../api/axios';
 import StatCard from '../components/StatCard';
 import Loading from '../components/Loading';
+import ExpenseByCategoryChart from '../components/ExpenseByCategoryChart';
+import ExpenseTrendChart from '../components/ExpenseTrendChart';
+import TaskStatusChart from '../components/TaskStatusChart';
 
 function Dashboard() {
   const [data, setData] = useState(null);
@@ -69,6 +72,11 @@ function Dashboard() {
   const expensesThisMonth = data?.expenses?.thisMonth ?? 0;
   const productivityToday = data?.productivity?.today ?? 0;
   const completedTasks = data?.tasks?.completed ?? 0;
+    const pendingTasks = data?.tasks?.pending ?? 0;
+
+    const categoryData = data?.charts?.byCategory || [];
+    const dailyTrend = data?.charts?.dailyTrend || [];
+    const monthlyTrend = data?.charts?.monthlyTrend || [];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -102,6 +110,18 @@ function Dashboard() {
             icon={CheckCircle2}
           />
         </div>
+
+          {/* Charts Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+            <ExpenseByCategoryChart data={categoryData} />
+            <TaskStatusChart completed={completedTasks} pending={pendingTasks} />
+          </div>
+
+          {/* Trend Charts */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <ExpenseTrendChart data={dailyTrend} title="Daily Expenses" subtitle="Last 7 days" />
+            <ExpenseTrendChart data={monthlyTrend} title="Monthly Expenses" subtitle="Last 6 months" />
+          </div>
       </div>
     </div>
   )
