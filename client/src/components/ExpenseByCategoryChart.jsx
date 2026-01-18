@@ -1,7 +1,11 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const COLORS = ['#0f172a', '#1e293b', '#334155', '#475569', '#64748b', '#94a3b8', '#cbd5e1', '#e2e8f0'];
-
+/*
+active (boolean) = Is the mouse hovering over a slice?
+payload (array) = Data of the hovered slice
+total (number) = Total of all expenses (passed from parent)
+*/
 const CustomTooltipPie = ({ active, payload, total }) => {
   if (active && payload && payload.length) {
     const percent = ((payload[0].value / total) * 100).toFixed(1);
@@ -55,7 +59,7 @@ function ExpenseByCategoryChart({ data }) {
             dataKey="amount"
             nameKey="category"
           >
-            {data.map((entry, index) => (
+            {data.map(( _, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
