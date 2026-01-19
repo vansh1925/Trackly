@@ -2,7 +2,7 @@ import Expense from "../models/expense.model.js";
 import mongoose from "mongoose";
 const addexpense = async (req, res) => {
   try {
-    const { title, amount, date, category, note } = req.body;
+    const { title, amount, date, category, description } = req.body;
 
     if (!title || !amount || !date || !category) {
       return res.status(400).json({ message: "All fields are required" });
@@ -25,7 +25,7 @@ const addexpense = async (req, res) => {
       amount,
       date,
       category,
-      note,
+      description,
       userId: req.user._id
     });
 
@@ -84,13 +84,13 @@ const deleteexpense = async (req, res) => {
 
 const updateexpense = async (req, res) => {
   try {
-    const { title, amount, date, category, note } = req.body;
+    const { title, amount, date, category, description } = req.body;
     if (!title || !amount || !date || !category) {
       return res.status(400).json({ message: "All fields are required" });
     }
     const expense = await Expense.findOneAndUpdate(
       { _id: req.params.id, userId: req.user._id },
-      { title, amount, date, category, note },
+      { title, amount, date, category, description },
       { new: true }
     );
 

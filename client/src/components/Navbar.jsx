@@ -19,6 +19,7 @@ function Navbar() {
   const navItems = [
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/expenses', label: 'Expenses' },
+    { path: '/tasks', label: 'Tasks' },
   ];
 
   return (

@@ -16,7 +16,7 @@ const expenseSchema=new Schema({
         type:String,
         required:true,
     },
-    note:{
+    description:{
         type:String,
     },
     userId:{
