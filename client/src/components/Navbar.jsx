@@ -3,6 +3,7 @@ import { LogOut, Menu, X, Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../context/useAuth';
 import { useTheme } from '../context/useTheme';
+import logo from '../assets/41ba87ea-acfb-41fa-9ef3-a404e07d0131.png';
 
 function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -38,7 +39,15 @@ function Navbar() {
               >
                 {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
-              <h1 className="text-xl font-bold text-slate-900 dark:text-white">ExpenseTracker</h1>
+              <img
+                src={logo}
+                alt="Trackly logo"
+                className="w-9 h-9 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+              />
+              <div className="flex flex-col leading-tight">
+                <span className="text-xl font-bold text-slate-900 dark:text-white">Trackly</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 -mt-0.5">Track money. Track time. Stay ahead.</span>
+              </div>
             </div>
 
             {/* Desktop Nav */}
