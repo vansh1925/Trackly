@@ -5,8 +5,6 @@ import { deleteTask, toggleTaskStatus } from '../api/task.api';
 
 function TaskCard({ task, onEdit, onDelete, onStatusChange }) {
   const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this task?')) return;
-
     try {
       await deleteTask(task._id);
       toast.success('Task deleted successfully!');

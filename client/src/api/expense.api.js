@@ -58,7 +58,7 @@ export async function addExpense(input) {
  */
 export async function getExpense(id) {
 	try {
-		const res = await api.get(`/expenses/${id}`);
+		const res = await api.get(`/expenses/get/${id}`);
 		return res.data;
 	} catch (error) {
 		handleError(error);
@@ -88,7 +88,7 @@ export async function getExpenses(params = {}) {
  */
 export async function updateExpense(id, input) {
 	try {
-		const res = await api.put(`/expenses/${id}`, input);
+		const res = await api.put(`/expenses/update/${id}`, input);
 		return res.data;
 	} catch (error) {
 		handleError(error);
@@ -102,7 +102,7 @@ export async function updateExpense(id, input) {
  */
 export async function deleteExpense(id) {
 	try {
-		const res = await api.delete(`/expenses/${id}`);
+		const res = await api.delete(`/expenses/delete/${id}`);
 		return res.data;
 	} catch (error) {
 		handleError(error);

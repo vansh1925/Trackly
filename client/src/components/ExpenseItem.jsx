@@ -4,8 +4,6 @@ import { deleteExpense } from '../api/expense.api';
 
 function ExpenseItem({ expense, onEdit, onDelete }) {
   const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this expense?')) return;
-
     try {
       await deleteExpense(expense._id);
       toast.success('Expense deleted successfully!');

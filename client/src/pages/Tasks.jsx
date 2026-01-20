@@ -3,27 +3,31 @@ import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
 import { getAllTasks } from '../api/task.api';
 import Loading from '../components/Loading';
-import TaskForm from '../components/TaskFOrm';
+import TaskForm from '../components/TaskForm';
 import TaskList from '../components/TaskList';
+import Pagination from '../components/Pagination';
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // Fetch all tasks
+  // Fetch tasks with pagination
   const fetchTasks = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getAllTasks();
+      const res = await getAllTasks({ page, limit: 10 });
       setTasks(res.tasks || []);
+      setTotalPages(res.totalpages || 1);
     } catch (error) {
       toast.error(error.message || 'Failed to load tasks');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     fetchTasks();
@@ -40,6 +44,7 @@ function Tasks() {
   };
 
   const handleFormSuccess = async () => {
+    setPage(1);
     await fetchTasks();
   };
 
@@ -51,6 +56,12 @@ function Tasks() {
     setTasks(tasks.map(task =>
       task._id === id ? { ...task, completed } : task
     ));
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
   };
 
   const completedCount = tasks.filter(task => task.completed).length;
@@ -109,12 +120,21 @@ function Tasks() {
         </div>
 
         {/* Tasks List */}
-        <TaskList
-          tasks={tasks}
-          onEdit={handleOpenForm}
-          onDelete={handleDelete}
-          onStatusChange={handleStatusChange}
-        />
+        <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <TaskList
+            tasks={tasks}
+            onEdit={handleOpenForm}
+            onDelete={handleDelete}
+            onStatusChange={handleStatusChange}
+          />
+          {tasks.length > 0 && (
+            <Pagination
+              page={page}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

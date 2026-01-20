@@ -1,15 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { addTask, updateTask } from '../api/task.api';
 
 function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
   const [formData, setFormData] = useState({
-    title: editingTask?.title || '',
-    duration: editingTask?.duration || '',
-    date: editingTask?.date 
-      ? new Date(editingTask.date).toISOString().split('T')[0]
-      : new Date().toISOString().split('T')[0]
+    title: '',
+    duration: '',
+    date: new Date().toISOString().split('T')[0]
   });
+
+  useEffect(() => {
+    if (editingTask) {
+      setFormData({
+        title: editingTask.title || '',
+        duration: editingTask.duration || '',
+        date: editingTask.date 
+          ? new Date(editingTask.date).toISOString().split('T')[0]
+          : new Date().toISOString().split('T')[0]
+      });
+    } else {
+      setFormData({
+        title: '',
+        duration: '',
+        date: new Date().toISOString().split('T')[0]
+      });
+    }
+  }, [editingTask]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
