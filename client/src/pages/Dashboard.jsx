@@ -46,18 +46,18 @@ function Dashboard() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-lg border border-red-200 p-6">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950">
+        <div className="max-w-md w-full bg-white dark:bg-slate-900 rounded-lg border border-red-200 dark:border-slate-700 p-6">
           <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
-              <span className="text-red-600 text-xl">⚠</span>
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-50 dark:bg-slate-800 flex items-center justify-center">
+              <span className="text-red-600 dark:text-red-300 text-xl">⚠</span>
             </div>
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-slate-900 mb-1">Error Loading Dashboard</h3>
-              <p className="text-sm text-slate-600 mb-4">{error}</p>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Error Loading Dashboard</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{error}</p>
               <button 
                 onClick={() => fetchData()}
-                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium rounded-lg transition-colors duration-200"
+                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition-colors duration-200"
               >
                 Try Again
               </button>
@@ -79,12 +79,12 @@ function Dashboard() {
     const monthlyTrend = data?.charts?.monthlyTrend || [];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Dashboard</h1>
-          <p className="mt-2 text-sm text-slate-600">Overview of your expenses and productivity</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Dashboard</h1>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Overview of your expenses and productivity</p>
         </div>
 
         {/* Stats Grid */}

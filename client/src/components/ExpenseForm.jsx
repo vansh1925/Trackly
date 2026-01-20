@@ -69,26 +69,26 @@ function ExpenseForm({ isOpen, onClose, editingExpense, onSuccess }) {
   if (!isOpen) return null;
 
   return (
-    <div className="mb-8 bg-white rounded-lg border border-slate-200 p-6">
-      <h2 className="text-lg font-semibold text-slate-900 mb-4">
+    <div className="mb-8 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+      <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
         {editingExpense ? 'Edit Expense' : 'Add New Expense'}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title *</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Title *</label>
             <input
               type="text"
               name="title"
               value={formData.title}
               onChange={handleFormChange}
               placeholder="e.g., Grocery shopping"
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-slate-600"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Amount (₹) *</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Amount (₹) *</label>
             <input
               type="number"
               name="amount"
@@ -96,28 +96,28 @@ function ExpenseForm({ isOpen, onClose, editingExpense, onSuccess }) {
               onChange={handleFormChange}
               placeholder="0.00"
               step="0.01"
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-slate-600"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Date *</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Date *</label>
             <input
               type="date"
               name="date"
               value={formData.date}
               onChange={handleFormChange}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-slate-600"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Category *</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Category *</label>
             <select
               name="category"
               value={formData.category}
               onChange={handleFormChange}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-slate-600"
               required
             >
               {CATEGORIES.map(cat => (
@@ -127,28 +127,28 @@ function ExpenseForm({ isOpen, onClose, editingExpense, onSuccess }) {
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Description</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleFormChange}
             placeholder="Optional notes"
             rows="2"
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-slate-600"
           />
         </div>
         <div className="flex gap-2 pt-2">
           <button
             type="submit"
             disabled={submitting}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white rounded-lg font-medium transition-colors"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-slate-700 dark:hover:bg-slate-600 disabled:bg-slate-400 text-white rounded-lg font-medium transition-colors"
           >
             {submitting ? 'Saving...' : (editingExpense ? 'Update' : 'Add')}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-medium transition-colors"
+            className="px-4 py-2 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-lg font-medium transition-colors"
           >
             Cancel
           </button>

@@ -3,9 +3,9 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const CustomTooltipArea = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-lg">
-        <p className="text-sm font-medium text-slate-900">{payload[0].payload.day || payload[0].payload.month}</p>
-        <p className="text-sm text-slate-600">₹{payload[0].value.toLocaleString('en-IN')}</p>
+      <div className="bg-white dark:bg-slate-900 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 shadow-lg">
+        <p className="text-sm font-medium text-slate-900 dark:text-white">{payload[0].payload.day || payload[0].payload.month}</p>
+        <p className="text-sm text-slate-600 dark:text-slate-300">₹{payload[0].value.toLocaleString('en-IN')}</p>
       </div>
     );
   }
@@ -15,10 +15,10 @@ const CustomTooltipArea = ({ active, payload }) => {
 function ExpenseTrendChart({ data, title = "Daily Expenses", subtitle = "Last 7 days" }) {
   if (!data || data.length === 0) {
     return (
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-        <h3 className="text-base font-semibold text-slate-900 mb-4">{title}</h3>
+      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-6">
+        <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-4">{title}</h3>
         <div className="h-64 flex items-center justify-center">
-          <p className="text-sm text-slate-500">No data available</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">No data available</p>
         </div>
       </div>
     );
@@ -28,15 +28,15 @@ function ExpenseTrendChart({ data, title = "Daily Expenses", subtitle = "Last 7 
   const avg = total / data.length;
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-base font-semibold text-slate-900">{title}</h3>
-          <p className="text-sm text-slate-500 mt-1">{subtitle}</p>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-white">{title}</h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{subtitle}</p>
         </div>
         <div className="text-right">
-          <p className="text-xs text-slate-500">Average</p>
-          <p className="text-lg font-semibold text-slate-900">₹{avg.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Average</p>
+          <p className="text-lg font-semibold text-slate-900 dark:text-white">₹{avg.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</p>
         </div>
       </div>
       
@@ -47,28 +47,28 @@ function ExpenseTrendChart({ data, title = "Daily Expenses", subtitle = "Last 7 
         >
           <defs>
             <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#0f172a" stopOpacity={0.1}/>
-              <stop offset="95%" stopColor="#0f172a" stopOpacity={0}/>
+              <stop offset="5%" stopColor="#38bdf8" stopOpacity={0.35}/>
+              <stop offset="95%" stopColor="#38bdf8" stopOpacity={0.05}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
           <XAxis 
             dataKey={data[0]?.day ? "day" : "month"} 
-            tick={{ fill: '#64748b', fontSize: 12 }}
-            axisLine={{ stroke: '#cbd5e1' }}
+            tick={{ fill: '#cbd5e1', fontSize: 12 }}
+            axisLine={{ stroke: '#475569' }}
           />
           <YAxis 
-            tick={{ fill: '#64748b', fontSize: 12 }}
-            axisLine={{ stroke: '#cbd5e1' }}
+            tick={{ fill: '#cbd5e1', fontSize: 12 }}
+            axisLine={{ stroke: '#475569' }}
             tickFormatter={(value) => `₹${value}`}
           />
           <Tooltip content={<CustomTooltipArea />} />
           <Area 
             type="monotone" 
             dataKey="amount" 
-            stroke="#0f172a" 
-            strokeWidth={2}
-            fillOpacity={1} 
+            stroke="#38bdf8" 
+            strokeWidth={2.2}
+            fillOpacity={0.9} 
             fill="url(#colorAmount)" 
           />
         </AreaChart>

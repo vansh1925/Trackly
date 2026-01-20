@@ -3,8 +3,8 @@ import TaskCard from './TaskCard';
 function TaskList({ tasks, onEdit, onDelete, onStatusChange }) {
   if (tasks.length === 0) {
     return (
-      <div className="bg-white rounded-lg border border-slate-200 p-12 text-center">
-        <p className="text-slate-600">No tasks yet. Create your first task to get started!</p>
+      <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-12 text-center">
+        <p className="text-slate-600 dark:text-slate-400">No tasks yet. Create your first task to get started!</p>
       </div>
     );
   }

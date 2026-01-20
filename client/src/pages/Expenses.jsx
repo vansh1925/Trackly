@@ -67,13 +67,13 @@ function Expenses() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex justify-between items-start mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Expenses</h1>
-            <p className="mt-2 text-sm text-slate-600">Manage and track your expenses</p>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Expenses</h1>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Manage and track your expenses</p>
           </div>
           <button
             onClick={() => {
@@ -83,7 +83,7 @@ function Expenses() {
                 handleOpenForm();
               }
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-lg font-medium transition-colors"
           >
             <Plus size={18} />
             {showForm && !editingExpense ? 'Cancel' : 'Add Expense'}
@@ -99,13 +99,13 @@ function Expenses() {
         />
 
         {/* Total Summary */}
-        <div className="mb-8 bg-white rounded-lg border border-slate-200 p-6">
-          <p className="text-sm text-slate-600">Total Expenses</p>
-          <p className="text-3xl font-bold text-slate-900">₹{totalExpenses.toLocaleString('en-IN')}</p>
+        <div className="mb-8 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <p className="text-sm text-slate-600 dark:text-slate-400">Total Expenses</p>
+          <p className="text-3xl font-bold text-slate-900 dark:text-white">{totalExpenses.toLocaleString('en-IN')}</p>
         </div>
 
         {/* Expenses List */}
-        <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
           <ExpenseList
             expenses={expenses}
             loading={loading}

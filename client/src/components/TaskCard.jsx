@@ -27,12 +27,12 @@ function TaskCard({ task, onEdit, onDelete, onStatusChange }) {
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3 flex-1">
           <button
             onClick={handleStatusToggle}
-            className="mt-1 text-slate-400 hover:text-slate-600 transition-colors flex-shrink-0"
+            className="mt-1 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors flex-shrink-0"
             title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}
           >
             {task.completed ? (
@@ -43,10 +43,10 @@ function TaskCard({ task, onEdit, onDelete, onStatusChange }) {
           </button>
           
           <div className="flex-1">
-            <h3 className={`font-semibold text-slate-900 ${task.completed ? 'line-through text-slate-500' : ''}`}>
+            <h3 className={`font-semibold text-slate-900 dark:text-white ${task.completed ? 'line-through text-slate-500 dark:text-slate-500' : ''}`}>
               {task.title}
             </h3>
-            <div className="flex items-center gap-4 mt-2 text-sm text-slate-600">
+            <div className="flex items-center gap-4 mt-2 text-sm text-slate-600 dark:text-slate-400">
               <span className="flex items-center gap-1">
                 <span className="font-medium">Duration:</span>
                 {task.duration} min
@@ -62,14 +62,14 @@ function TaskCard({ task, onEdit, onDelete, onStatusChange }) {
         <div className="flex gap-2 flex-shrink-0">
           <button
             onClick={() => onEdit(task)}
-            className="p-2 hover:bg-blue-50 text-blue-600 rounded transition-colors"
+            className="p-2 hover:bg-blue-50 dark:hover:bg-slate-800 text-blue-600 dark:text-slate-200 rounded transition-colors"
             title="Edit"
           >
             <Edit2 size={16} />
           </button>
           <button
             onClick={handleDelete}
-            className="p-2 hover:bg-red-50 text-red-600 rounded transition-colors"
+            className="p-2 hover:bg-red-50 dark:hover:bg-slate-800 text-red-600 dark:text-red-300 rounded transition-colors"
             title="Delete"
           >
             <Trash2 size={16} />

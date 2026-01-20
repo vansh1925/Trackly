@@ -1,6 +1,6 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
-const COLORS = ['#0f172a', '#1e293b', '#334155', '#475569', '#64748b', '#94a3b8', '#cbd5e1', '#e2e8f0'];
+const COLORS = ['#38bdf8', '#a78bfa', '#22c55e', '#f59e0b', '#f97316', '#ef4444', '#67e8f9', '#c084fc'];
 /*
 active (boolean) = Is the mouse hovering over a slice?
 payload (array) = Data of the hovered slice
@@ -10,10 +10,10 @@ const CustomTooltipPie = ({ active, payload, total }) => {
   if (active && payload && payload.length) {
     const percent = ((payload[0].value / total) * 100).toFixed(1);
     return (
-      <div className="bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-lg">
-        <p className="text-sm font-medium text-slate-900">{payload[0].name}</p>
-        <p className="text-sm text-slate-600">₹{payload[0].value.toLocaleString('en-IN')}</p>
-        <p className="text-xs text-slate-500">{percent}% of total</p>
+      <div className="bg-white dark:bg-slate-900 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 shadow-lg">
+        <p className="text-sm font-medium text-slate-900 dark:text-white">{payload[0].name}</p>
+        <p className="text-sm text-slate-600 dark:text-slate-300">₹{payload[0].value.toLocaleString('en-IN')}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">{percent}% of total</p>
       </div>
     );
   }
@@ -23,10 +23,10 @@ const CustomTooltipPie = ({ active, payload, total }) => {
 function ExpenseByCategoryChart({ data }) {
   if (!data || data.length === 0) {
     return (
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-        <h3 className="text-base font-semibold text-slate-900 mb-4">Expenses by Category</h3>
+      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-6">
+        <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-4">Expenses by Category</h3>
         <div className="h-64 flex items-center justify-center">
-          <p className="text-sm text-slate-500">No expense data available</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">No expense data available</p>
         </div>
       </div>
     );
@@ -35,15 +35,15 @@ function ExpenseByCategoryChart({ data }) {
   const total = data.reduce((sum, item) => sum + item.amount, 0);
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-base font-semibold text-slate-900">Expenses by Category</h3>
-          <p className="text-sm text-slate-500 mt-1">This month</p>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-white">Expenses by Category</h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">This month</p>
         </div>
         <div className="text-right">
-          <p className="text-xs text-slate-500">Total</p>
-          <p className="text-lg font-semibold text-slate-900">₹{total.toLocaleString('en-IN')}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Total</p>
+          <p className="text-lg font-semibold text-slate-900 dark:text-white">₹{total.toLocaleString('en-IN')}</p>
         </div>
       </div>
       
@@ -68,7 +68,7 @@ function ExpenseByCategoryChart({ data }) {
             verticalAlign="bottom" 
             height={36}
             formatter={(value) => (
-              <span className="text-sm text-slate-700">{value}</span>
+              <span className="text-sm text-slate-700 dark:text-slate-300">{value}</span>
             )}
           />
         </PieChart>

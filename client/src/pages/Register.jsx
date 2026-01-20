@@ -76,28 +76,28 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4 py-12">
       <div className="w-full max-w-md">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-slate-900 mb-4">
-            <UserPlus className="w-6 h-6 text-white" strokeWidth={2} />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-slate-900 dark:bg-slate-800 mb-4">
+            <UserPlus className="w-6 h-6 text-white dark:text-slate-100" strokeWidth={2} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Create your account</h1>
-          <p className="mt-2 text-sm text-slate-600">Start tracking your expenses and productivity</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Create your account</h1>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Start tracking your expenses and productivity</p>
         </div>
 
         {/* Register Card */}
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-8">
+        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div role="alert" aria-live="assertive" className="rounded-lg bg-red-50 border border-red-200 p-4">
-                <p className="text-sm text-red-800">{error}</p>
+              <div role="alert" aria-live="assertive" className="rounded-lg bg-red-50 dark:bg-slate-900 border border-red-200 dark:border-slate-700 p-4">
+                <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
               </div>
             )}
             
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Full Name
               </label>
               <input
@@ -108,12 +108,12 @@ function Register() {
                 value={name}
                 required
                 disabled={loading}
-                className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-500 transition-colors"
+                className="w-full px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-600 focus:border-transparent disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:text-slate-500 dark:disabled:text-slate-500 transition-colors"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Email
               </label>
               <input
@@ -124,12 +124,12 @@ function Register() {
                 value={email}
                 required
                 disabled={loading}
-                className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-500 transition-colors"
+                className="w-full px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-600 focus:border-transparent disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:text-slate-500 dark:disabled:text-slate-500 transition-colors"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Password
               </label>
               <input
@@ -140,12 +140,12 @@ function Register() {
                 value={password}
                 required
                 disabled={loading}
-                className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-500 transition-colors"
+                className="w-full px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-600 focus:border-transparent disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:text-slate-500 dark:disabled:text-slate-500 transition-colors"
               />
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Confirm Password
               </label>
               <input
@@ -156,14 +156,14 @@ function Register() {
                 value={confirmPassword}
                 required
                 disabled={loading}
-                className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-500 transition-colors"
+                className="w-full px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-600 focus:border-transparent disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:text-slate-500 dark:disabled:text-slate-500 transition-colors"
               />
             </div>
 
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+              className="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-600 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
             >
               {loading ? 'Creating account...' : 'Create account'}
             </button>
@@ -171,9 +171,9 @@ function Register() {
         </div>
 
         {/* Footer */}
-        <p className="mt-6 text-center text-sm text-slate-600">
+        <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
           Already have an account?{' '}
-          <Link to="/login" className="font-medium text-slate-900 hover:text-slate-700 transition-colors">
+          <Link to="/login" className="font-medium text-slate-900 hover:text-slate-700 dark:text-white dark:hover:text-slate-200 transition-colors">
             Sign in
           </Link>
         </p>
