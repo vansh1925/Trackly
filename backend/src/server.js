@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
+import { apiLimiter, authLimiter } from './middlewares/rateLimiter.middleware.js';
 import connectDB from './config/db.js';
 import userroutes from './routes/user.route.js';
 import expenserouters from './routes/expense.route.js';
@@ -9,22 +11,27 @@ import authMiddleware from './middlewares/auth.middleware.js';
 import dashboardrouter from './routes/dashboard.route.js';
 dotenv.config();
 const app=express();
+app.use(helmet());
 connectDB();
-
 // CORS configuration
 app.use(cors({
   origin: ['http://localhost:5173', 'http://localhost:5174'],
   credentials: true
 }));
-
 app.use(express.json());
 
-const PORT=process.env.PORT || 5000;  
-app.listen(PORT,()=>{
-  console.log(`Server is running on port ${PORT}`);
-});
+// Apply rate limiters
+app.use('/api/users/login', authLimiter);
+app.use('/api/users/register', authLimiter);
+app.use('/api/dashboard', apiLimiter);
+
+//routes
 app.use('/api/users',userroutes);
 app.use('/api/expenses',authMiddleware,expenserouters);
 app.use('/api/tasks',authMiddleware,taskrouters);
 app.use('/api/dashboard',authMiddleware,dashboardrouter);
 
+const PORT=process.env.PORT || 5000;  
+app.listen(PORT,()=>{
+  console.log(`Server is running on port ${PORT}`);
+});
