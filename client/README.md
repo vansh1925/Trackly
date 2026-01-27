@@ -116,7 +116,7 @@ client/
 │   │   ├── ExpenseItem.jsx       # Single expense row
 │   │   ├── TaskCard.jsx          # Task item card
 │   │   ├── TaskList.jsx          # Tasks container
-│   │   ├── TaskFOrm.jsx          # Add/edit task form
+│   │   ├── TaskForm.jsx          # Add/edit task form
 │   │   ├── StatCard.jsx          # Dashboard stat widget
 │   │   ├── ExpenseByCategoryChart.jsx  # Pie chart
 │   │   ├── ExpenseTrendChart.jsx       # Area chart
