@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
+// Force rebuild for Vercel deployment
 import { getAllTasks } from '../api/task.api.js';
 import Loading from '../components/Loading.jsx';
 import TaskForm from '../components/TaskForm.jsx';
