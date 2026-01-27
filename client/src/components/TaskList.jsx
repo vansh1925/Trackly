@@ -1,4 +1,4 @@
-import TaskCard from './TaskCard';
+import TaskCard from './TaskCard.jsx';
 
 function TaskList({ tasks, onEdit, onDelete, onStatusChange }) {
   if (tasks.length === 0) {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { addExpense, updateExpense } from '../api/expense.api';
+import { addExpense, updateExpense } from '../api/expense.api.js';
 
 const CATEGORIES = ['Food', 'Transport', 'Entertainment', 'Utilities', 'Shopping', 'Health', 'Other'];
 

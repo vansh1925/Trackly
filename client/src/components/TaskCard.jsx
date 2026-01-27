@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trash2, Edit2, CheckCircle, Circle } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { deleteTask, toggleTaskStatus } from '../api/task.api';
+import { deleteTask, toggleTaskStatus } from '../api/task.api.js';
 
 function TaskCard({ task, onEdit, onDelete, onStatusChange }) {
   const handleDelete = async () => {

@@ -1,6 +1,6 @@
 import { Trash2, Edit2 } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { deleteExpense } from '../api/expense.api';
+import { deleteExpense } from '../api/expense.api.js';
 
 function ExpenseItem({ expense, onEdit, onDelete }) {
   const handleDelete = async () => {

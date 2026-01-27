@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { addTask, updateTask } from '../api/task.api';
+import { addTask, updateTask } from '../api/task.api.js';
 
 function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
   const [formData, setFormData] = useState({
