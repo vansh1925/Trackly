@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 import { validateEmail, validatePasswordStrength, sanitizeInput } from '../utils/validation.js';
 
 const generateAccessToken= (userId)=>{
-  
-  const token=jwt.sign({ id:userId }, process.env.JWT_SECRET, { expiresIn:'7d' });
+  const expiresIn = process.env.JWT_EXPIRES_IN || '7d';
+  const token=jwt.sign({ id:userId }, process.env.JWT_SECRET, { expiresIn });
   return token;
 }
 const registerUser = async (req, res) => {
@@ -42,7 +42,8 @@ const registerUser = async (req, res) => {
      return res.status(400).json({ message: 'User already exists' });
    }
    
-   const hashedPassword = await bcrypt.hash(password, 10);
+   const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS) || 12;
+   const hashedPassword = await bcrypt.hash(password, saltRounds);
    const user= await User.create({ name, email, password: hashedPassword });
    const createdUser = await User.findById(user._id)
         .select("-password")
