@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Expenses from './pages/Expenses';
 import Tasks from './pages/Tasks';
+import Analytics from './pages/Analytics';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -42,6 +43,15 @@ function App() {
               <ProtectedRoute>
                 <Navbar />
                 <Tasks />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/analytics"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <Analytics />
               </ProtectedRoute>
             }
           />

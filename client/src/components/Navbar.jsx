@@ -23,6 +23,7 @@ function Navbar() {
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/expenses', label: 'Expenses' },
     { path: '/tasks', label: 'Tasks' },
+    { path: '/analytics', label: 'Analytics' },
   ];
 
   return (
