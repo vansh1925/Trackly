@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { fetchAnalytics } from '../api/analytics.api';
-import Loading from '../components/Loading';
-import AnalyticsChart from '../components/AnalyticsChart';
-import InsightCard from '../components/InsightCard';
+import { fetchAnalytics } from '../api/analytics.api.js';
+import Loading from '../components/Loading.jsx';
+import AnalyticsChart from '../components/AnalyticsChart.jsx';
+import InsightCard from '../components/InsightCard.jsx';
 import { TrendingUp, DollarSign, Clock, Calendar } from 'lucide-react';
 import toast from 'react-hot-toast';
 

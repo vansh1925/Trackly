@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Expenses from './pages/Expenses';
-import Tasks from './pages/Tasks';
-import Analytics from './pages/Analytics';
-import Navbar from './components/Navbar';
-import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import Expenses from './pages/Expenses.jsx';
+import Tasks from './pages/Tasks.jsx';
+import Analytics from './pages/Analytics.jsx';
+import Navbar from './components/Navbar.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 
 function App() {

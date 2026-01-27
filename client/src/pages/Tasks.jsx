@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
-import { getAllTasks } from '../api/task.api';
-import Loading from '../components/Loading';
-import TaskForm from '../components/TaskForm';
-import TaskList from '../components/TaskList';
-import Pagination from '../components/Pagination';
+import { getAllTasks } from '../api/task.api.js';
+import Loading from '../components/Loading.jsx';
+import TaskForm from '../components/TaskForm.jsx';
+import TaskList from '../components/TaskList.jsx';
+import Pagination from '../components/Pagination.jsx';
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);

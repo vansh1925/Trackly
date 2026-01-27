@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
-import { getExpenses } from '../api/expense.api';
-import Loading from '../components/Loading';
-import ExpenseForm from '../components/ExpenseForm';
-import ExpenseList from '../components/ExpenseList';
-import Pagination from '../components/Pagination';
+import { getExpenses } from '../api/expense.api.js';
+import Loading from '../components/Loading.jsx';
+import ExpenseForm from '../components/ExpenseForm.jsx';
+import ExpenseList from '../components/ExpenseList.jsx';
+import Pagination from '../components/Pagination.jsx';
 
 function Expenses() {
   const [expenses, setExpenses] = useState([]);

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { IndianRupee, TrendingUp, Clock, CheckCircle2 } from 'lucide-react';
-import api from '../api/axios';
-import StatCard from '../components/StatCard';
-import Loading from '../components/Loading';
-import ExpenseByCategoryChart from '../components/ExpenseByCategoryChart';
-import ExpenseTrendChart from '../components/ExpenseTrendChart';
-import TaskStatusChart from '../components/TaskStatusChart';
+import api from '../api/axios.js';
+import StatCard from '../components/StatCard.jsx';
+import Loading from '../components/Loading.jsx';
+import ExpenseByCategoryChart from '../components/ExpenseByCategoryChart.jsx';
+import ExpenseTrendChart from '../components/ExpenseTrendChart.jsx';
+import TaskStatusChart from '../components/TaskStatusChart.jsx';
 
 function Dashboard() {
   const [data, setData] = useState(null);
