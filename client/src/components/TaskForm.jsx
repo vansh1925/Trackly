@@ -8,6 +8,7 @@ function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
     duration: '',
     date: new Date().toISOString().split('T')[0]
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (editingTask) {
@@ -43,9 +44,10 @@ function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
       return;
     }
 
+    setIsLoading(true);
     try {
       const taskData = {
-        title: formData.title,
+        title: formData.title.trim(),
         duration: parseInt(formData.duration),
         date: formData.date
       };
@@ -62,6 +64,8 @@ function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
       if (onSuccess) onSuccess();
     } catch (error) {
       toast.error(error.message || 'Failed to save task');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -120,14 +124,16 @@ function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
         <div className="flex gap-2 pt-2">
           <button
             type="submit"
-            className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-lg font-medium transition-colors"
+            disabled={isLoading}
+            className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
           >
-            {editingTask ? 'Update Task' : 'Add Task'}
+            {isLoading ? 'Saving...' : (editingTask ? 'Update Task' : 'Add Task')}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-4 py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-200 rounded-lg font-medium transition-colors"
+            disabled={isLoading}
+            className="flex-1 px-4 py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-200 rounded-lg font-medium transition-colors disabled:opacity-50"
           >
             Cancel
           </button>

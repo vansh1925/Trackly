@@ -2,7 +2,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const api=axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://trackly-6yji.onrender.com/api'
 })
 
 api.interceptors.request.use((req)=>{
@@ -29,6 +29,14 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    // Handle CORS errors
+    if (error.code === 'ERR_NETWORK' || error.message.includes('CORS')) {
+      toast.error('Network error: Please check if the server is running and CORS is configured properly', {
+        duration: 6000,
+      });
+      return Promise.reject(error);
+    }
+
     // Handle 429 Too Many Requests
     if (error.response?.status === 429) {
       const reset = error.response.headers['ratelimit-reset'];
@@ -39,7 +47,6 @@ api.interceptors.response.use(
           ? `Too many attempts. Try again in ${minutes} minute(s).`
           : 'Too many requests. Please try again later.',
         { duration: 6000 }
-
       );
     }
     
