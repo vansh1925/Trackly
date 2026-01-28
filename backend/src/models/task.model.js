@@ -28,5 +28,8 @@ const taskSchema=new Schema({
 {
   timestamps:true
 });
+// Performance indexes for common queries
+taskSchema.index({ userId: 1, date: 1 });
+taskSchema.index({ userId: 1, completed: 1 });
 const Task=mongoose.model('Tasks',taskSchema);
 export default Task;

@@ -8,6 +8,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (setter) => (e) => {
@@ -18,15 +19,18 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsSubmitting(true);
 
     // Validation
     if (!email.trim() || !password.trim()) {
       setError('Email and password are required');
+      setIsSubmitting(false);
       return;
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Please enter a valid email');
+      setIsSubmitting(false);
       return;
     }
 
@@ -41,6 +45,8 @@ function Login() {
         message = err.message;
       }
       setError(message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -75,7 +81,7 @@ function Login() {
                 placeholder="you@example.com"
                 value={email}
                 onChange={handleInputChange(setEmail)}
-                disabled={loading}
+                disabled={loading || isSubmitting}
                 className="w-full px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-600 focus:border-transparent disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:text-slate-500 transition-colors"
               />
             </div>
@@ -90,17 +96,17 @@ function Login() {
                 placeholder="••••••••"
                 value={password}
                 onChange={handleInputChange(setPassword)}
-                disabled={loading}
+                disabled={loading || isSubmitting}
                 className="w-full px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-600 focus:border-transparent disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:text-slate-500 transition-colors"
               />
             </div>
 
             <button 
               type="submit" 
-              disabled={loading}
+              disabled={loading || isSubmitting}
               className="w-full py-2.5 px-4 bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-600 focus:ring-offset-2"
             >
-              {loading ? 'Signing in...' : 'Sign in'}
+              {isSubmitting ? 'Signing in...' : 'Sign in'}
             </button>
           </form>
         </div>

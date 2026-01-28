@@ -6,7 +6,7 @@ import api from './axios';
  */
 export const fetchAnalytics = async () => {
   try {
-    const response = await api.get('/analytics/analytics');
+    const response = await api.get('/analytics');
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Failed to fetch analytics data' };

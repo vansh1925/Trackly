@@ -27,5 +27,8 @@ const expenseSchema=new Schema({
 },{
     timestamps:true,
 });
+// Performance indexes for common queries
+expenseSchema.index({ userId: 1, date: 1 });
+expenseSchema.index({ userId: 1, category: 1 });
 const Expense=mongoose.model('Expenses',expenseSchema);
 export default Expense; 

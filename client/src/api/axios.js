@@ -2,7 +2,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const api=axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://trackly-6yji.onrender.com/api'
+  baseURL: import.meta.env.VITE_API_URL || 'https://trackly-6yji.onrender.com/api',
+  timeout: 10000 // fail fast if backend is cold-starting
 })
 
 api.interceptors.request.use((req)=>{
@@ -48,6 +49,11 @@ api.interceptors.response.use(
           : 'Too many requests. Please try again later.',
         { duration: 6000 }
       );
+    }
+
+    // Handle unauthorized
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
     }
     
     return Promise.reject(error);
