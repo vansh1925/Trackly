@@ -128,10 +128,10 @@ http://localhost:5000/api
 
 #### Spending vs Productivity (last 7 days)
 ```http
-GET /analytics/analytics
+GET /analytics
 Authorization: Bearer <token>
 ```
-Returns daily expenses, daily productivity (minutes), averages, and correlation insights (drop/gain vs spend).
+Returns daily expenses, daily productivity (minutes), averages, and rule-based correlation insights (drop/gain vs spend).
 
 ### Authentication Endpoints
 

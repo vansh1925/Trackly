@@ -17,9 +17,12 @@ A modern, full-stack expense and task tracking application built with React, Exp
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Quick Start](#-quick-start)
+- [Screenshots](#-screenshots)
+- [Demo](#-demo)
 - [Project Structure](#-project-structure)
 - [Configuration](#-configuration)
 - [API Documentation](#-api-documentation)
+- [Performance & Production Notes](#-performance--production-notes)
 - [Security](#-security)
 - [Contributing](#-contributing)
 - [License](#-license)
@@ -42,22 +45,20 @@ A modern, full-stack expense and task tracking application built with React, Exp
 - ✅ Date-based organization
 - ✅ Productivity metrics
 
-### 📊 Advanced Analytics & Intelligence Engine
-- ✅ **Smart Expense-Productivity Correlation Analysis** with 4-tier severity detection
-- ✅ **Dynamic Insight Generation** using statistical thresholds and pattern recognition
-- ✅ **Dual-Axis Trend Analysis** with interactive Recharts visualizations
-- ✅ **Intelligent Pattern Detection** for high-spend vs productivity correlation
-- ✅ **Automated Behavioral Insights** with contextual recommendations
-- ✅ **Real-time Statistical Analysis** over 7-day rolling windows
-- ✅ **Edge Case Handling** for insufficient data and variance detection
-- ✅ **Advanced MongoDB Aggregation** with 12+ optimized pipeline queries
+### 📊 Analytics & Insights (Rule-Based)
+- ✅ Expense–productivity correlation using simple, transparent thresholds (4-tier severity)
+- ✅ Rule-based insight generation from weekly averages 
+- ✅ Dual-axis trend analysis with interactive Recharts visualizations
+- ✅ Comparative analysis of high-spend vs normal days
+- ✅ Clear user-facing messages for insufficient data or low variance
+- ✅ MongoDB aggregation pipelines optimized for common queries
 
-### 🧠 Correlation Intelligence Features
-- **PRODUCTIVITY_DROP**: Detects when high spending reduces productivity (30%+, 20%+, 15%+ thresholds)
-- **PRODUCTIVITY_GAIN**: Identifies positive spending-productivity relationships
-- **NO_CORRELATION**: Statistical analysis when no strong patterns exist
-- **INSUFFICIENT_DATA**: Intelligent guidance for building better insights
-- **VARIANCE_DETECTION**: Identifies when spending patterns lack meaningful variation
+### 🧮 Correlation Rules
+- **PRODUCTIVITY_DROP**: High spending correlates with lower productivity (30%+/20%+/15%+ tiers)
+- **PRODUCTIVITY_GAIN**: Higher productivity on high-spend days (≥20%)
+- **NO_STRONG_CORRELATION**: No meaningful relationship detected
+- **INSUFFICIENT_DATA**: Not enough days to evaluate
+- **INSUFFICIENT_VARIANCE**: Spending patterns too uniform to compare
 
 ### 🎨 User Experience
 - ✅ Dark mode (persistent across sessions)
@@ -111,35 +112,35 @@ MongoDB 5.0+  - NoSQL database
 
 ---
 
-## 🧠 Analytics Intelligence Engine
+## 📊 Analytics Engine (Rule-Based)
 
 ### Expense-Productivity Correlation Analysis
-Trackly features a sophisticated analytics engine that goes beyond simple expense tracking to provide meaningful behavioral insights:
+Trackly includes a deterministic analytics module that computes insights from your data using clear, rule-based thresholds:
 
 #### 🔬 Statistical Analysis Process
-1. **Data Aggregation**: Collects 7-day rolling window of expenses and completed tasks
-2. **Pattern Classification**: Automatically categorizes days as "high-spend" vs "normal-spend" 
-3. **Productivity Correlation**: Calculates productivity impact using statistical variance analysis
-4. **Threshold Detection**: Applies 4-tier severity system with configurable thresholds:
+1. **Data Aggregation**: Collects a 7-day window of expenses and completed tasks
+2. **Day Classification**: Categorizes days as "high-spend" vs "normal" by comparing to average
+3. **Correlation Check**: Computes productivity averages on both sets and compares
+4. **Thresholds**: Applies 4-tier severity system with configurable percentage cutoffs:
    - **HIGH_PRODUCTIVITY_DROP**: 30%+ reduction (Critical insight)
    - **MEDIUM_PRODUCTIVITY_DROP**: 20-29% reduction (Warning insight) 
    - **LOW_PRODUCTIVITY_DROP**: 15-19% reduction (Awareness insight)
    - **PRODUCTIVITY_GAIN**: 20%+ improvement (Positive insight)
 
-#### 💡 Dynamic Insight Generation
-The system generates contextual insights like:
+#### 💡 Insight Generation (Rule-Based)
+The system generates straightforward, rule-based messages like:
 - *"High spending days reduce productivity by 34%"* (Data-driven percentage)
 - *"You are more productive on higher spending days"* (Positive correlation)
 - *"Not enough variation in spending patterns to detect trends"* (Statistical guidance)
 
-#### 📈 Advanced Visualizations
+#### 📈 Visualizations
 - **Dual-Axis Line Chart**: Expense trends vs Productivity trends with independent Y-axes
 - **Interactive Tooltips**: Contextual data points with formatted currency and time
 - **Correlation Indicators**: Visual markers for high-spend and low-productivity days
 - **Statistical Averages**: Real-time calculation of 7-day rolling averages
 
-#### 🎯 Smart Demo Data
-Includes sophisticated seeding system that creates realistic patterns:
+#### 🎯 Demo Data
+Includes a sample seeding script that creates realistic patterns:
 - **High-spend days** with configurable multipliers (default 2.5x)
 - **Zero-productivity days** to create meaningful variance
 - **Realistic task durations** and expense distributions
@@ -217,6 +218,25 @@ http://localhost:5173
 - Password: `Easypass@123`
 
 
+
+## 🖼️ Screenshots
+
+> Replace the image paths below with your actual screenshots once captured.
+
+![Login](docs/screenshots/login.png)
+![Dashboard](docs/screenshots/dashboard.png)
+![Analytics](docs/screenshots/analytics.png)
+
+---
+
+## 🎥 Demo
+
+- Live Frontend: https://trackly-zeta.vercel.app/
+- API Base URL: https://trackly-6yji.onrender.com/api
+- Postman Collection: Trackly_API_Postman.json (at repo root)
+
+
+
 ---
 
 ## 📁 Project Structure
@@ -226,79 +246,80 @@ trackly/
 ├── backend/
 │   ├── src/
 │   │   ├── config/
-│   │   │   └── db.js              # MongoDB connection
+│   │   │   └── db.js
 │   │   ├── controllers/
-│   │   │   ├── user.controller.js     # Auth & user logic
-│   │   │   ├── expense.controller.js  # Expense CRUD
-│   │   │   ├── task.controller.js     # Task CRUD
-│   │   │   └── dashboard.controller.js # Analytics
-│   │   ├── models/
-│   │   │   ├── dashboard.controller.js # Dashboard analytics
-│   │   │   └── analytics.controller.js # Spending vs productivity analytics
-│   │   │   ├── expense.model.js        # Expense schema
-│   │   │   └── task.model.js           # Task schema
-│   │   ├── routes/
-│   │   │   ├── user.route.js           # Auth routes
-│   │   │   ├── expense.route.js        # Expense routes
-│   │   │   ├── task.route.js           # Task routes
-│   │   │   └── dashboard.route.js      # Analytics route
+│   │   │   ├── analytics.controller.js
+│   │   │   ├── dashboard.controller.js
+│   │   │   ├── expense.controller.js
+│   │   │   ├── task.controller.js
+│   │   │   └── user.controller.js
 │   │   ├── middlewares/
-│   │   │   ├── dashboard.route.js      # Dashboard route
-│   │   │   └── analytics.route.js      # Analytics route
-│   │   │   └── rateLimiter.middleware.js # Rate limiting
-│   │   ├── utils/
-│   │   │   └── validation.js        # Input validation
-│   │   └── server.js                # Express app setup
-│   ├── .env.example
-│   │   └── server.js                # Express app setup
-│   └── scripts/
-│       └── seedSampleData.js        # Demo data seeder
-│   └── README.md
+│   │   │   ├── auth.middleware.js
+│   │   │   └── rateLimiter.middleware.js
+│   │   ├── models/
+│   │   │   ├── expense.model.js
+│   │   │   ├── task.model.js
+│   │   │   └── user.model.js
+│   │   ├── routes/
+│   │   │   ├── analytics.route.js
+│   │   │   ├── dashboard.route.js
+│   │   │   ├── expense.route.js
+│   │   │   ├── task.route.js
+│   │   │   └── user.route.js
+│   │   └── server.js
+│   ├── scripts/
+│   │   └── seedSampleData.js
+│   └── package.json
 │
 ├── client/
 │   ├── src/
 │   │   ├── api/
-│   │   │   ├── axios.js             # Axios config
-│   │   │   ├── auth.api.js          # Auth endpoints
-│   │   │   ├── expense.api.js       # Expense endpoints
-│   │   │   ├── task.api.js          # Task endpoints
-│   │   │   └── dashboard.api.js     # Analytics endpoints
+│   │   │   ├── analytics.api.js
+│   │   │   ├── axios.js
+│   │   │   ├── dashboard.api.js
+│   │   │   ├── expense.api.js
+│   │   │   └── task.api.js
 │   │   ├── components/
-│   │   │   ├── Navbar.jsx           # Top navigation
-│   │   │   ├── Sidebar.jsx          # Mobile sidebar
-│   │   │   ├── ExpenseForm.jsx      # Add/edit expense
-│   │   │   ├── ExpenseList.jsx      # Expenses table
-│   │   │   ├── TaskCard.jsx         # Task item
-│   │   │   ├── TaskList.jsx         # Tasks container
-│   │   │   ├── StatCard.jsx         # Dashboard stat
-│   │   │   ├── ExpenseByCategoryChart.jsx  # Pie chart
-│   │   │   ├── ExpenseTrendChart.jsx       # Area chart
-│   │   │   ├── TaskStatusChart.jsx         # Bar chart
-│   │   │   ├── Loading.jsx          # Spinner
-│   │   │   ├── Pagination.jsx       # Pagination
-│   │   │   └── ProtectedRoute.jsx   # Route guard
+│   │   │   ├── AnalyticsChart.jsx
+│   │   │   ├── ExpenseByCategoryChart.jsx
+│   │   │   ├── ExpenseForm.jsx
+│   │   │   ├── ExpenseItem.jsx
+│   │   │   ├── ExpenseList.jsx
+│   │   │   ├── ExpenseTrendChart.jsx
+│   │   │   ├── InsightCard.jsx
+│   │   │   ├── Loading.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Pagination.jsx
+│   │   │   ├── ProtectedRoute.jsx
+│   │   │   ├── StatCard.jsx
+│   │   │   ├── TaskCard.jsx
+│   │   │   ├── TaskForm.jsx
+│   │   │   └── TaskList.jsx
 │   │   ├── context/
-│   │   │   ├── AuthContext.jsx      # Auth state
-│   │   │   ├── useAuth.js           # Auth hook
-│   │   │   ├── ThemeContext.jsx     # Dark mode state
-│   │   │   └── useTheme.js          # Theme hook
+│   │   │   ├── AuthContext.jsx
+│   │   │   ├── ThemeContext.jsx
+│   │   │   ├── useAuth.js
+│   │   │   └── useTheme.js
 │   │   ├── pages/
-│   │   │   ├── Login.jsx            # Login page
-│   │   │   ├── Register.jsx         # Registration page
-│   │   │   ├── Dashboard.jsx        # Dashboard page
-│   │   │   ├── Expenses.jsx         # Expenses page
-│   │   │   └── Tasks.jsx            # Tasks page
-│   │   ├── App.jsx                  # Root component
-│   │   ├── main.jsx                 # Entry point
-│   │   └── index.css                # Global styles
-│   ├── .env.example
+│   │   │   ├── Analytics.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Expenses.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   │   └── Tasks.jsx
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── index.html
 │   ├── package.json
 │   ├── vite.config.js
 │   ├── tailwind.config.js
-│   └── README.md
+│   ├── postcss.config.js
+│   └── eslint.config.js
 │
-├── .gitignore
-└── README.md (this file)
+├── Trackly_API_Postman.json
+├── README.md
+└── DEPLOYMENT.md
 ```
 
 ---
@@ -688,7 +709,7 @@ Authorization: Bearer <token>
 
 #### Get Advanced Analytics & Correlation Insights
 ```http
-GET /api/analytics/analytics
+GET /api/analytics
 Authorization: Bearer <token>
 ```
 
@@ -766,6 +787,21 @@ Authorization: Bearer <token>
   }
 }
 ```
+
+---
+
+## ⚡ Performance & Production Notes
+
+- Parallelized dashboard queries: Aggregations run concurrently via `Promise.all()` in `backend/src/controllers/dashboard.controller.js`, reducing total latency to roughly the slowest query.
+- MongoDB indexes: Added indexes for common filters to speed up reads and aggregations:
+  - Expenses: `(userId, date)`, `(userId, category)` in `backend/src/models/expense.model.js`.
+  - Tasks: `(userId, date)`, `(userId, completed)` in `backend/src/models/task.model.js`.
+- Faster, clearer UX on slow networks: Axios `timeout: 10000` in `client/src/api/axios.js` avoids indefinite spinners and surfaces a retry path. `Login.jsx` uses a local submitting state for instant feedback.
+- Cleaner analytics route: `GET /api/analytics` (no redundant path segment), aligned across backend and client.
+- Server hardening in `backend/src/server.js`:
+  - Disabled `x-powered-by`, set `trust proxy` in production for accurate client IPs behind CDNs.
+  - Consistent JSON 404 and centralized error handler for structured responses.
+  - Graceful shutdown on `SIGINT`/`SIGTERM` closes HTTP and MongoDB cleanly.
 
 ---
 
@@ -1099,4 +1135,4 @@ The seeded data creates realistic scenarios that demonstrate:
 
 ---
 
-**Made with ❤️ by the Trackly Team**
+**Made with ❤️ by Vansh Puri**
