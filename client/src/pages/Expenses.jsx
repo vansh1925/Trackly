@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
 import { getExpenses } from '../api/expense.api.js';
@@ -17,6 +17,7 @@ function Expenses() {
   // Form state
   const [showForm, setShowForm] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
+  const formRef = useRef(null);
 
   // Fetch expenses on page change
   const fetchExpenses = useCallback(async () => {
@@ -36,6 +37,16 @@ function Expenses() {
   useEffect(() => {
     fetchExpenses();
   }, [fetchExpenses]);
+
+  // Auto-scroll to form when opening or switching to edit mode
+  useEffect(() => {
+    if (showForm && formRef.current) {
+      // slight delay to ensure render
+      setTimeout(() => {
+        formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 0);
+    }
+  }, [showForm, editingExpense]);
 
   const handleOpenForm = (expense = null) => {
     setEditingExpense(expense || null);
@@ -92,6 +103,7 @@ function Expenses() {
 
         {/* Form */}
         <ExpenseForm
+          ref={formRef}
           isOpen={showForm}
           onClose={handleCloseForm}
           editingExpense={editingExpense}

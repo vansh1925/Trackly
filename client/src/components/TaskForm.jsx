@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import toast from 'react-hot-toast';
 import { addTask, updateTask } from '../api/task.api.js';
 
-function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
+function TaskFormBase({ isOpen, onClose, editingTask, onSuccess }, scrollRef) {
   const [formData, setFormData] = useState({
     title: '',
     duration: '',
@@ -72,7 +72,7 @@ function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
   if (!isOpen) return null;
 
   return (
-    <div className="mb-8 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+    <div ref={scrollRef} className="mb-8 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
       <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
         {editingTask ? 'Edit Task' : 'Add New Task'}
       </h2>
@@ -143,4 +143,5 @@ function TaskForm({ isOpen, onClose, editingTask, onSuccess }) {
   );
 }
 
+const TaskForm = forwardRef(TaskFormBase);
 export default TaskForm;

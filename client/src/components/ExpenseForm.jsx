@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import toast from 'react-hot-toast';
 import { addExpense, updateExpense } from '../api/expense.api.js';
 
 const CATEGORIES = ['Food', 'Transport', 'Entertainment', 'Utilities', 'Shopping', 'Health', 'Other'];
 
-function ExpenseForm({ isOpen, onClose, editingExpense, onSuccess }) {
+function ExpenseFormBase({ isOpen, onClose, editingExpense, onSuccess }, scrollRef) {
   const [formData, setFormData] = useState(
     editingExpense ? {
       title: editingExpense.title,
@@ -21,6 +21,27 @@ function ExpenseForm({ isOpen, onClose, editingExpense, onSuccess }) {
     }
   );
   const [submitting, setSubmitting] = useState(false);
+
+  // Keep form in sync when editingExpense changes
+  useEffect(() => {
+    if (editingExpense) {
+      setFormData({
+        title: editingExpense.title,
+        amount: editingExpense.amount,
+        date: editingExpense.date.split('T')[0],
+        category: editingExpense.category,
+        description: editingExpense.description || ''
+      });
+    } else {
+      setFormData({
+        title: '',
+        amount: '',
+        date: new Date().toISOString().split('T')[0],
+        category: 'Food',
+        description: ''
+      });
+    }
+  }, [editingExpense]);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -69,7 +90,7 @@ function ExpenseForm({ isOpen, onClose, editingExpense, onSuccess }) {
   if (!isOpen) return null;
 
   return (
-    <div className="mb-8 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+    <div ref={scrollRef} className="mb-8 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
       <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
         {editingExpense ? 'Edit Expense' : 'Add New Expense'}
       </h2>
@@ -158,4 +179,5 @@ function ExpenseForm({ isOpen, onClose, editingExpense, onSuccess }) {
   );
 }
 
+const ExpenseForm = forwardRef(ExpenseFormBase);
 export default ExpenseForm;

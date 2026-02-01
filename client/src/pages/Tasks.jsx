@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
 import { getAllTasks } from '../api/task.api.js';
@@ -12,6 +12,7 @@ function Tasks() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const formRef = useRef(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -32,6 +33,15 @@ function Tasks() {
   useEffect(() => {
     fetchTasks();
   }, [fetchTasks]);
+
+  // Auto-scroll to form when opening or switching to edit mode
+  useEffect(() => {
+    if (showForm && formRef.current) {
+      setTimeout(() => {
+        formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 0);
+    }
+  }, [showForm, editingTask]);
 
   const handleOpenForm = (task = null) => {
     setEditingTask(task);
@@ -97,6 +107,7 @@ function Tasks() {
 
         {/* Form */}
         <TaskForm
+          ref={formRef}
           isOpen={showForm}
           onClose={handleCloseForm}
           editingTask={editingTask}
